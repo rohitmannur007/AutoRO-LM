@@ -19,6 +19,7 @@ backend/data/artifacts/
 frontend/node_modules/
 frontend/dist/
 frontend/coverage/
+frontend/tsconfig.tsbuildinfo
 frontend/.vite/
 .DS_Store
 *.zip
