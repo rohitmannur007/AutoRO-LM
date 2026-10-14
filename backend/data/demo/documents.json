@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "label": "DEMO",
+  "notice": "Hand-authored demonstration fixtures. They are not NHTSA complaints, recalls, or manufacturer bulletins.",
+  "documents": [
+    {
+      "document_id": "demo-obd-p0420",
+      "source_type": "demo_reference",
+      "source_name": "DEMO reference: P0420",
+      "source_group": "grp-obd-p0420",
+      "split": "reference",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "reference_note",
+      "text": "DEMO FIXTURE, not an official service bulletin. OBD-II code P0420 means catalyst system efficiency below threshold on bank 1. The monitor compared oxygen sensor signals and found catalyst efficiency below its threshold. A stored P0420 by itself is not proof that the catalytic converter has failed. Intake leaks, exhaust leaks, mixture faults, and oxygen sensor faults can set the same code. Do not treat this code as an instruction to replace the converter."
+    },
+    {
+      "document_id": "demo-obd-p0300",
+      "source_type": "demo_reference",
+      "source_name": "DEMO reference: P0300",
+      "source_group": "grp-obd-p0300",
+      "split": "reference",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "reference_note",
+      "text": "DEMO FIXTURE, not an official service bulletin. P0300 indicates a random or multiple-cylinder misfire. It does not name a single failed part. Misfires can involve ignition coils, spark plugs, fuel delivery, or mechanical engine problems. A stored P0300 is not confirmation that any one component has failed."
+    },
+    {
+      "document_id": "demo-obd-p0171",
+      "source_type": "demo_reference",
+      "source_name": "DEMO reference: P0171",
+      "source_group": "grp-obd-p0171",
+      "split": "reference",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "reference_note",
+      "text": "DEMO FIXTURE, not an official service bulletin. P0171 indicates the fuel system is too lean on bank 1. Associated systems include unmetered intake air and fuel delivery. The code alone does not prove that a fuel pump or an injector has failed."
+    },
+    {
+      "document_id": "demo-obd-p0128",
+      "source_type": "demo_reference",
+      "source_name": "DEMO reference: P0128",
+      "source_group": "grp-obd-p0128",
+      "split": "reference",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "reference_note",
+      "text": "DEMO FIXTURE, not an official service bulletin. P0128 indicates coolant temperature stayed below the thermostat regulating temperature. The thermostat is commonly inspected for this code, but the code is not proof the thermostat has failed. A coolant temperature sensor fault can also be involved."
+    },
+    {
+      "document_id": "demo-brake-escape",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Escape brakes",
+      "source_group": "grp-brakes-escape",
+      "split": "train",
+      "allow_synthetic_seed": true,
+      "narrative_kind": "demo_technician_note",
+      "make": "Ford",
+      "model": "Escape",
+      "model_year": 2016,
+      "component": "front brake pads",
+      "text": "DEMO technician note, fictional, not a repair order from a shop system. 2016 Ford Escape. Customer reports a grind from the front brakes at low speed. Replaced the front brake pads."
+    },
+    {
+      "document_id": "demo-civic-catalyst",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Civic catalyst",
+      "source_group": "grp-emissions-civic",
+      "split": "train",
+      "allow_synthetic_seed": true,
+      "narrative_kind": "demo_technician_note",
+      "make": "Honda",
+      "model": "Civic",
+      "model_year": 2018,
+      "component": "catalytic converter",
+      "text": "DEMO technician note, fictional, not a repair order from a shop system. 2018 Honda Civic. Check engine light on. Stored DTC P0420. Customer reports a rotten egg smell at idle. Replaced the catalytic converter and cleared codes."
+    },
+    {
+      "document_id": "demo-malibu-radio",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Malibu radio",
+      "source_group": "grp-electrical-malibu",
+      "split": "train",
+      "allow_synthetic_seed": true,
+      "narrative_kind": "demo_technician_note",
+      "make": "Chevrolet",
+      "model": "Malibu",
+      "model_year": 2015,
+      "component": "radio",
+      "text": "DEMO technician note, fictional. 2015 Chevrolet Malibu. Customer reports the battery is dead after the car sits overnight. Replaced the radio."
+    },
+    {
+      "document_id": "demo-altima-hvac",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Altima HVAC",
+      "source_group": "grp-hvac-altima",
+      "split": "train",
+      "allow_synthetic_seed": true,
+      "narrative_kind": "demo_technician_note",
+      "make": "Nissan",
+      "model": "Altima",
+      "model_year": 2017,
+      "text": "DEMO technician note, fictional. 2017 Nissan Altima. Customer reports the air conditioning is not cold. Low refrigerant charge found. No component was identified as failed."
+    },
+    {
+      "document_id": "demo-wrangler-solenoid",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Wrangler solenoid",
+      "source_group": "grp-drivetrain-wrangler",
+      "split": "train",
+      "allow_synthetic_seed": true,
+      "narrative_kind": "demo_technician_note",
+      "make": "Jeep",
+      "model": "Wrangler",
+      "model_year": 2013,
+      "component": "shift solenoid",
+      "text": "DEMO technician note, fictional. 2013 Jeep Wrangler. Customer reports the transmission will not shift out of second gear. Replaced the shift solenoid."
+    },
+    {
+      "document_id": "demo-corolla-misfire",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Corolla misfire",
+      "source_group": "grp-engine-corolla",
+      "split": "validation",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "demo_technician_note",
+      "make": "Toyota",
+      "model": "Corolla",
+      "model_year": 2014,
+      "text": "DEMO technician note, fictional. 2014 Toyota Corolla. Rough idle and a flashing check engine light. Stored DTC P0300. No repair performed."
+    },
+    {
+      "document_id": "demo-camry-holdout",
+      "source_type": "demo_note",
+      "source_name": "DEMO technician note: Camry holdout",
+      "source_group": "grp-holdout-camry-2019",
+      "split": "test",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "demo_technician_note",
+      "make": "Toyota",
+      "model": "Camry",
+      "model_year": 2019,
+      "text": "DEMO technician note, fictional. 2019 Toyota Camry. Brake pedal pulsates at highway speed. Suspect warped front rotors. No parts replaced."
+    },
+    {
+      "document_id": "demo-not-a-recall",
+      "source_type": "demo_reference",
+      "source_name": "DEMO label example: not a recall",
+      "source_group": "grp-demo-label",
+      "split": "reference",
+      "allow_synthetic_seed": false,
+      "narrative_kind": "demo_label_example",
+      "text": "DEMO FIXTURE. This record is not a real NHTSA recall and it has no campaign number. It shows how a recall-style card is labeled differently from a consumer complaint. No repair procedure is authorized by this text."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# `docker compose up` starts MongoDB only. The demo does not need it.
+# `docker compose --profile stack up` also starts the API container.
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - autoro_mongo:/data/db
+  api:
+    profiles: ["stack"]
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      AUTORO_DATABASE_URL: mongodb://mongo:27017
+      AUTORO_PROVIDER: demo
+    depends_on:
+      - mongo
+volumes:
+  autoro_mongo:

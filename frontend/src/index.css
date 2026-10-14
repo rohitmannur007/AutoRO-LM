@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(46, 196, 182, 0.08), transparent 50%),
+    #071018;
+  color: #e7eef6;
+}
+
+* {
+  scrollbar-color: #234056 transparent;
+}
+
+:focus-visible {
+  outline: 2px solid #2ec4b6;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(46, 196, 182, 0.35);
+}
+
+mark {
+  background: rgba(226, 179, 64, 0.35);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}

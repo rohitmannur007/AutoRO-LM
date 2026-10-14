@@ -1,0 +1,343 @@
+MASTER BUILD PROMPT — AUTO ROYAL M (AutoRO-LM)
+
+ROLE AND MISSION
+You are acting as a principal AI/ML engineer, senior LLM research engineer, staff backend engineer, senior frontend engineer, data engineer, QA engineer, and product designer. Build a complete, reproducible, high-quality end-to-end project named “Auto Royal M”, with the technical product/repository name “AutoRO-LM”. Do not merely provide a plan, mockup, code snippets, or a scaffold. Implement the application in the working repository, run the available tests and build checks, fix failures, and document anything that genuinely cannot be run in the current environment.
+
+The user’s computer is a MacBook with Apple M2 (Apple Silicon), so local development must be realistic for macOS ARM64. Do not assume an NVIDIA GPU or CUDA. The core application must start and demonstrate its end-to-end user flows without requiring a paid API key, downloaded LLM, remote database, or GPU. Advanced model training and real-model inference may be optional integrations, but their code paths, setup instructions, validation, and failure messages must be real—not fake success states.
+
+CORE PRODUCT
+AutoRO-LM is an automotive repair-text intelligence research platform. It converts noisy automotive narratives into structured data and answers automotive questions using retrievable, source-grounded technical documents. It is designed as a public-data research prototype inspired by the automotive LLM/NLP responsibilities in the target job description. It must never claim access to Predii’s proprietary data, internal platform, private models, customers, or systems.
+
+The project has two main AI capabilities:
+1. EXTRACTION: Convert unstructured complaint/repair-style text into schema-validated JSON containing vehicle details, symptoms, diagnostic trouble codes (DTCs), components, repair actions, and evidence snippets. Missing or unsupported information must be null/unknown, not hallucinated.
+2. GROUNDED DIAGNOSTIC QA: Retrieve relevant public documents, then answer from those passages with verifiable citations. If retrieved evidence does not support an answer, explicitly abstain and explain that evidence is insufficient. A DTC alone must not be presented as proof that a component has failed.
+
+A third differentiator is a SYNTHETIC-DATA RESEARCH PIPELINE: create controlled synthetic technician-style examples grounded in permitted source facts, track provenance, filter low-quality/contradictory examples, fine-tune when hardware/software allow it, and compare synthetic-data mixtures on an untouched real evaluation set.
+
+NON-NEGOTIABLE ENGINEERING RULES
+- Inspect the existing repository first; preserve useful work if present. Do not overwrite user files blindly.
+- Implement in coherent phases and keep the repository runnable at every milestone.
+- Do not claim a feature works unless it is implemented and tested. Do not invent evaluation metrics, benchmark results, dataset sizes, citations, TSB contents, or model performance.
+- If external data cannot be downloaded during development, implement a reliable sample/demo dataset with conspicuous DEMO labels and document exactly how real data is obtained. Do not pass sample data off as real NHTSA data.
+- Use official/public sources, read the current source documentation and terms, and store source URL, access date, document ID, and provenance. Confirm actual schemas at ingestion time; never hardcode assumed data field names without validation.
+- Avoid scraping sites where the data is unavailable or use is disallowed. Follow source licenses and terms. Make ingestion resilient to schema drift, HTTP errors, rate limits, and partial downloads.
+- No secrets in source control. Provide .env.example and validate configuration at startup.
+- Never train on the final test set or generate synthetic descendants of held-out evaluation documents. Guard against near-duplicate leakage.
+- All user-facing diagnosis content is informational only. Show a clear safety disclaimer: consult the manufacturer’s service information and a qualified technician for repairs, especially for safety-critical systems.
+- Keep model provider integrations behind interfaces, so a local Ollama model, a future hosted provider, and deterministic demo mode can be swapped without changing the API contract.
+- Build for accessibility, responsive layouts, useful empty/loading/error states, keyboard support, and clean visual hierarchy.
+- Use type hints, clear module boundaries, structured logs, schema validation, sensible error messages, and meaningful tests.
+- Do not add complex technologies just for résumé keywords. Explain and justify each dependency.
+
+TARGET MAC M2 ENVIRONMENT
+The default developer path should work on macOS with Apple Silicon and a supported current Python/Node toolchain. Provide exact setup commands and verify them where possible.
+- Frontend: React, TypeScript, Vite, a maintained styling/component approach (Tailwind CSS is acceptable), accessible components, and a charting library only where it adds value.
+- Backend: Python 3.11 or 3.12, FastAPI, Pydantic v2, Uvicorn, pytest, and Ruff (or equivalent).
+- Metadata/application persistence: support MongoDB if configured, with a low-friction local development path. Prefer Docker Compose for MongoDB on M2 when Docker is installed. If MongoDB is not available, the app must still boot in local demo mode using a documented SQLite/file-backed repository adapter; do not silently pretend MongoDB is connected.
+- Retrieval: a transparent hybrid retrieval interface. Use BM25/keyword retrieval plus embeddings/vector retrieval when configured. Choose Apple-Silicon-compatible dependencies; make vector indexing optional if installation is problematic and provide a functional lexical fallback. Keep source IDs and metadata attached to every result.
+- Model inference: default to deterministic demo provider so every screen and API can be tested offline. Optional Ollama integration may be used for local inference. Check Ollama availability and model presence explicitly. An unavailable model must yield a helpful 503/configuration error, not a fabricated result.
+- Fine-tuning: for Apple Silicon, document MLX/MLX-LM as an optional native path if the selected model is supported. Hugging Face PEFT/QLoRA may be documented as an optional CUDA/cloud path; do not state CUDA/bitsandbytes fine-tuning works on an M2 Mac. Clearly separate supported, optional, and cloud-only paths.
+- Use Docker only for services that benefit from it. The core local demo must not require Docker.
+- Provide macOS-specific notes for shell commands, ARM64 packages, environment activation, ports, and troubleshooting.
+
+PRODUCT EXPERIENCE / PREMIUM UI
+Create a professional, modern, polished data/AI product interface—not a generic template or an oversimplified chat page. It should look like a credible enterprise automotive intelligence dashboard with restrained dark/navy and teal accents, clear typography, generous spacing, refined tables, subtle borders, compact status indicators, and excellent responsive behavior. Avoid excessive gradients, oversized hero sections, decorative cards without purpose, and fake telemetry.
+
+Required primary navigation/screens:
+1. Overview dashboard: project description, ingestion/index status, recent jobs, dataset counts computed from actual local data, model/provider status, API health, and evaluation results only if real records exist. When using demo fixtures, label them DEMO.
+2. Text Extraction: input area, optional vehicle metadata, run extraction, formatted JSON output, field-level confidence only if the active provider truly returns a calibrated score, evidence snippets, schema-validity indicator, copy/download JSON, and understandable validation errors.
+3. Diagnostic QA: natural-language question, optional make/model/year/DTC filters, answer, retrieved source cards, highlighted matched passages, clickable source URL where available, citation-to-passage mapping, relevance information if computed, and a visible abstention state.
+4. Data Sources / Ingestion: configured sources, source type, source URL, collected-at timestamp, data status, last attempt, counts, errors, ingestion controls, and a way to inspect individual records. Clearly label demonstration fixtures.
+5. Synthetic Data Studio: choose a seed source, desired variation types, requested count within safe limits, teacher provider, generate, inspect, validate, reject/approve, deduplicate, export JSONL, and view provenance. Do not fabricate synthetic record counts. Show that generation is disabled or unavailable when no teacher provider is configured.
+6. Experiments / Evaluation: create experiment runs, choose dataset versions, training mixture, model/provider, and metrics; show status and real stored results. Provide charts for synthetic share vs field F1, valid-JSON rate, retrieval Recall@k/MRR, citation accuracy, abstention quality, latency, and memory only where data actually exists. Empty states should tell the user how to create results. Never render invented sample scores as actual results.
+7. Model & Settings: active provider, local model status, endpoints/configuration, data directory, database status, retrieval settings, privacy notes, and environment configuration status. Never expose secret values.
+8. Documentation / About: architecture, limitations, safety notice, data provenance, and links to repository documentation.
+
+UI BEHAVIOR
+- Navigation and every visible button must have a meaningful working action.
+- Include polished skeleton/loading states, empty states, error banners/toasts, and retry where sensible.
+- Forms validate inputs and show inline messages.
+- Preserve user-entered text during recoverable errors.
+- Support keyboard navigation and visible focus states; label form controls; use semantic HTML and accessible names.
+- Include copy-to-clipboard and downloadable JSON/JSONL/CSV reports where applicable.
+- Use responsive layouts that work on a normal MacBook screen and narrower windows.
+- Do not make up charts or fake live status. Demo fixtures, mock provider output, sample records, and simulated job states must always be labeled as demonstration data.
+
+DATA MODEL / SCHEMA
+Define versioned Pydantic schemas and matching TypeScript types. Include stable IDs and timestamps, and implement migrations/version compatibility if schema changes.
+At minimum define:
+- VehicleInfo: make, model, model_year, VIN only if supplied/appropriate (avoid unnecessary personal data).
+- ExtractionResult: symptom, dtc_codes[], component, suspected_component (distinct from confirmed failed component), repair_action, complaint, cause, correction, unknown_fields[], evidence[], schema_version, provider/model metadata, created_at.
+- EvidenceSpan: field_name, quoted_text, source_text_id/source_document_id, start/end character offsets where possible, evidence_type, support status.
+- SourceDocument: document_id, source_type, source_url, source_name, retrieved_at, published_at where available, license/terms notes, make/model/year/component/code metadata if available, text, checksum, provenance, ingestion_status.
+- DocumentChunk: chunk_id, document_id, chunk_index, text, offsets, metadata, embedding status.
+- SyntheticExample: example_id, input_text, expected_json, seed_document_ids, generation_model/provider, generation_prompt_version, created_at, validation checks, quality flags, review status, split assignment, provenance label (synthetic).
+- GoldExample: example_id, source IDs, input_text, human-reviewed target JSON, annotation guideline version, reviewer notes, split assignment. Avoid identifying reviewers personally.
+- ExperimentRun: run_id, task, model/provider, model revision, dataset/version IDs, real/synthetic mixture, training settings, seed, metrics, artifact paths, runtime, hardware, commit hash, status, logs, started/finished timestamps.
+- QAResponse: request_id, question, filters, answer, abstained, citations[], retrieved chunk IDs, provider metadata, latency, evaluation metadata if known.
+- AuditEvent or Job: action, status, timestamps, counts, errors, safe structured metadata.
+
+DATA INGESTION
+Implement data adapters for public automotive data, especially NHTSA complaints and available manufacturer communications/TSBs and recalls. Treat API endpoints and data formats as configurable and documented, and verify official/current documentation before implementation. Include a supported sample fixture pack for offline testing. Do not assume all manufacturer service manuals are freely available.
+- Download with timeouts, retries/backoff, streaming for large files, progress reporting, checksums, and safe path handling.
+- Parse JSON/CSV/ZIP where appropriate; reject suspicious archive paths; validate content types and payload shapes.
+- Normalize whitespace, encodings, make/model aliases only through explicit mappings, missing values, timestamps, and duplicate records.
+- Preserve raw source text and a separate cleaned representation; keep source IDs/URLs and metadata.
+- Use stable IDs/checksums; support incremental re-ingestion without duplicate records.
+- Provide data profiling outputs: record counts, missingness, text-length distribution, common DTC patterns, component/category distribution where available, duplicate counts, and data-quality warnings.
+- Clearly differentiate consumer complaint narratives from confirmed repair orders and synthetic repair-style notes.
+- Add rate-limited ingestion and job status tracking. Never let ingestion block the web server request thread for long-running jobs.
+- Include small, hand-crafted demo fixtures with unambiguous synthetic/demo labels, separate from real-source loaders.
+
+SYNTHETIC DATA GENERATION
+Implement a provider-agnostic teacher interface and a deterministic offline disabled/demo option. Do not falsely report real model generation when using a fixed fixture. Include support for local Ollama when configured, and leave extension points for a permitted external provider without hardcoding keys.
+- Generate technician-style paraphrases only from facts supported by a chosen source. Variations may include abbreviations, capitalization, punctuation, typos, terse notes, and complaint/cause/correction structure.
+- Preserve which fields are supported by the seed and which are deliberately absent. Do not invent a completed repair, DTC, failed part, vehicle identity, or procedure.
+- Every generated example must carry seed/source document IDs, model/provider name, prompt version, timestamp, and provenance.
+- Validate JSON against a strict schema; normalize codes; run duplicate/near-duplicate checks; detect unsupported-field additions; check contradiction with source; record quality flags. Do not rely only on an LLM-as-judge.
+- Provide an optional LLM-as-judge adapter only as a secondary signal, with clear labeling and manual review.
+- Include a manual review queue with approve/reject/reason and a quality summary. Rejected examples must not enter training by default.
+- Make maximum generation count configurable and use rate/cost limits for any paid provider.
+- Export/import versioned JSONL with a manifest and checksums.
+- Never generate synthetic descendants of the gold/test documents. Enforce split-before-synthesis by source group and add a test for the rule.
+
+MACHINE LEARNING / EXPERIMENTS
+Build a reproducible pipeline with a meaningful non-LLM baseline first.
+1. Rules baseline: DTC extraction using tested patterns, text normalization, and transparent rules.
+2. scikit-learn baseline: TF-IDF + LogisticRegression (or suitable model) for a clearly defined component/category classification task. Provide a label mapping, training script, inference function, and metrics. Do not pretend this classifier solves full JSON extraction.
+3. Prompted/base LLM baseline when a provider is configured.
+4. RAG-only baseline for QA, without domain fine-tuning.
+5. Fine-tuned small-model path for extraction. Use an Apple Silicon-compatible MLX-LM route when model/license/support permits; document optional cloud/CUDA QLoRA as a separate environment. Do not make the core macOS install depend on CUDA-only libraries.
+6. Optional fine-tuning for QA only if time and hardware allow; core project can use the fine-tuned extractor plus RAG for QA.
+
+Dataset split rules:
+- Split by source document/group before creating synthetic variants.
+- Group duplicates and near duplicates; avoid source leaks across train/validation/test.
+- Provide vehicle-model or model-year holdout evaluation where dataset size permits. Document fallback if groups are too small.
+- Keep the gold test set untouched during prompt, model, and hyperparameter development.
+- Store deterministic split manifests and random seeds.
+- Test split integrity in automated tests.
+
+Experiments:
+- Compare synthetic data shares such as 0%, 25%, 50%, 75%, and 100% where data counts allow, while controlling total training examples and other settings as closely as possible. If a 0%-synthetic arm has no real training examples or the proportions are infeasible, explain and redesign rather than faking an experiment.
+- Compare filtered vs unfiltered synthetic data.
+- Compare keyword, vector, and hybrid retrieval.
+- Compare RAG-only vs model/provider options only where comparable setups are possible.
+- Log configuration, versions, random seed, source manifest, hardware, runtime, failures, and real metrics for every run.
+- Create experiment tables and charts only from stored output. Mark incomplete/failed runs accurately.
+- Add bootstrap confidence intervals for appropriate example-level metrics. Clearly state assumptions and repeat-run limitations.
+- Analyze 30–50 errors when the dataset supports it; group failures into meaningful categories and include an exportable error-analysis file.
+
+EVALUATION
+Extraction:
+- Field-level precision, recall, F1 and support counts for applicable fields.
+- Exact match where the annotation format supports it.
+- JSON/schema validity rate.
+- DTC precision/recall and component/category confusion matrix as appropriate.
+- Null/unknown prediction quality and unsupported-field/hallucination rate.
+
+Retrieval:
+- Recall@k, MRR, Precision@k where relevance labels exist.
+- Compare lexical, vector, and hybrid retrieval using the same test questions and labels.
+
+QA:
+- Answer correctness scored against reviewed references.
+- Claim-level faithfulness/support when labels or manual review are available.
+- Citation correctness: cited document exists and supports the associated claim.
+- Abstention precision/recall or suitable abstention metrics on answerable/unanswerable cases.
+- End-to-end latency and error rates under documented conditions.
+
+Rules:
+- Never output a numeric metric if it was not measured. If there are too few labels, label the metric unavailable and explain why.
+- Provide metric definitions, denominators, handling of unknown fields, evaluation dataset version, and caveats.
+- Keep test data out of training, prompt optimization, and synthetic-data seeding.
+- Add unit tests for metric calculations and small known-answer fixtures.
+
+RETRIEVAL AND CITATIONS
+Implement interfaces for lexical and semantic retrieval. Keep an always-available lexical fallback. Store source metadata with each chunk. Filters must support applicable fields such as make, model, model year, DTC, component, and document type only when those attributes exist.
+- Chunks should preserve source document IDs, URLs, section information, and offsets.
+- Use hybrid ranking only when implemented and evaluated; define how scores/ranks are combined.
+- A QA response may cite only retrieved source/chunk IDs. Validate citations against retrieval output.
+- The UI must let users open source links and inspect the specific evidence passage behind a citation.
+- Avoid presenting a semantic match as proof of vehicle applicability; make uncertainty and filter mismatch clear.
+- If no relevant evidence is found, or evidence conflicts, abstain/flag the conflict instead of making up an answer.
+
+BACKEND/API
+Build a modular FastAPI application with `/api/v1` versioned endpoints and OpenAPI docs.
+Required endpoints (adjust names consistently in code and docs):
+- GET `/api/v1/health` — app health, version, and dependency/provider status without leaking secrets.
+- GET `/api/v1/status` — data/index/model/database status.
+- POST `/api/v1/extract` — perform schema-validated extraction.
+- POST `/api/v1/ask` — retrieve evidence and answer/abstain with citations.
+- GET `/api/v1/sources` and GET `/api/v1/sources/{id}` — list and inspect sources/documents.
+- POST `/api/v1/ingestion/jobs` and GET `/api/v1/jobs/{id}` — launch and inspect ingestion jobs.
+- POST `/api/v1/synthetic/jobs` and GET `/api/v1/synthetic/jobs/{id}` — launch/check generation when a teacher provider is configured.
+- GET `/api/v1/synthetic/examples`, POST `/api/v1/synthetic/examples/{id}/review`, and an export endpoint.
+- POST `/api/v1/evaluations` and GET `/api/v1/evaluations/{id}`; GET `/api/v1/evaluations` for history.
+- GET `/api/v1/experiments` and GET `/api/v1/experiments/{id}`.
+- GET/PUT safe non-secret application settings as appropriate; never reveal env secrets.
+
+API requirements:
+- Typed Pydantic request/response models, input limits, bounded timeouts, validation errors, pagination, stable error shape, request IDs, structured logs, CORS configuration, and reasonable rate limiting for expensive endpoints.
+- Return 4xx for invalid inputs and 503/502 for explicitly unavailable providers/dependencies. Do not return fake success payloads.
+- Use an abstraction layer for persistence with a real configured MongoDB adapter and a clearly declared SQLite/file adapter for offline dev/test mode.
+- Use async/background jobs for long ingestion/generation/evaluation work, with accurate queued/running/completed/failed states. Keep job persistence durable enough for local use.
+- Make shutdown graceful and close clients cleanly.
+- Include unit and integration tests with a test database/temp directory and dependency overrides.
+
+FRONTEND
+Implement a full React + TypeScript frontend using a clear feature-based structure and typed API client. Use a maintained router, query/cache/state pattern where appropriate, schema validation for forms, and reusable accessible components. A component library or Tailwind is fine, but keep the UI coherent and maintainable.
+- Responsive sidebar/topbar, app title/logo treatment, global health/status indicators, useful breadcrumbs/page titles, loading and error handling.
+- Dashboard values must come from backend data. No arbitrary counter values.
+- Extraction screen with syntax-highlighted JSON, field-level status, evidence, copy and download actions, and sample DEMO input button.
+- QA screen with citations linked to retrieved passages, source filters, abstention status, and an explicit “evidence not sufficient” experience.
+- Data source screens with ingestion job progress and error summaries.
+- Synthetic review table, detail panel, provenance, validation findings, approve/reject actions, and JSONL export.
+- Evaluation screens with proper empty states, run metadata, metric tables, charts based on actual records, filters, and CSV/JSON export.
+- Settings page showing provider configuration state without secrets and links to setup documentation.
+- Toasts/alerts, retry mechanisms, disabled states when a provider is unavailable, accessible dialogs, and confirmation for destructive actions.
+- Include frontend component tests for important forms and a smoke/E2E test for the primary flows if feasible in the environment.
+- Never render fake model scores or synthetic provider results as real results. DEMO mode must be clearly labeled globally and locally.
+
+DATABASE AND STORAGE
+Provide repository/service abstractions so API code is not tightly coupled to a database. Include indexes for IDs, source IDs, timestamps, job states, and fields used for filters where appropriate. Add a simple schema/data version field. Use safe writes, atomic file replacement where appropriate, and reasonable pagination. Do not store large raw files in MongoDB if a filesystem/object-store layout is more appropriate; store paths and metadata.
+
+SECURITY AND PRIVACY
+- `.env` excluded from Git; provide `.env.example` with placeholders only.
+- Validate uploads and prevent path traversal, unsafe archive extraction, oversized payloads, and malformed documents.
+- Never execute generated code or arbitrary model output.
+- Sanitize HTML/Markdown shown in UI.
+- Limit request sizes, bound model output, protect expensive endpoints from accidental repeated jobs, and keep provider keys server-side.
+- Do not send source text to a hosted provider unless the user explicitly configured that provider and understands the data flow. Default local demo mode must work offline.
+- Provide a privacy notice describing persisted prompts/results and a way to clear local demo/application data when safe to do so.
+- The product is a research assistant, not a substitute for qualified automotive service guidance. Avoid prescriptive safety-critical directions unsupported by manufacturer documentation.
+
+OBSERVABILITY AND PERFORMANCE
+- Structured logs with request ID, endpoint, status, latency, and provider/service name; do not log secrets or unnecessarily repeat full user text.
+- Track job durations, ingestion counts/errors, retrieval time, model time, and API failures where available.
+- Add timeouts and cancellation where practical.
+- Avoid blocking operations in the FastAPI event loop; offload CPU-heavy or long-running work to a worker/job executor appropriate for local scope.
+- Provide a simple benchmark script that records environment, dataset size, concurrency, p50/p95 latency where measurable, throughput, errors, and memory if accessible. Clearly separate demo, local-model, and cloud results.
+
+TESTING AND QUALITY GATES
+Backend:
+- Pytest unit tests for schemas, parsing, normalization, deduplication, split leakage, synthetic validation, citations, abstention, metric calculations, and repository adapters.
+- FastAPI integration tests for extraction, QA, status, error conditions, and job lifecycle using deterministic test providers.
+- Test fixture outputs must be clearly demo fixtures and deterministic.
+Frontend:
+- TypeScript type-check, lint, production build, component tests for extraction form/QA citations/error states, and a smoke test where feasible.
+- Check responsive layout/accessibility basics and no broken routes.
+End-to-end:
+- Start backend and frontend using documented commands, verify health, run one demo extraction, one demo QA request with a fixture citation, inspect a source, and export JSON/JSONL. Do not depend on external services for these acceptance tests.
+- Add CI workflow on supported runners if reasonable, with separate steps for Python and frontend and no secrets required.
+- Use Ruff/formatting, ESLint, and TypeScript strict mode (or explain any intentional exception).
+
+DOCUMENTATION AND REPRODUCIBILITY
+Create at minimum:
+- `README.md` with project summary, screenshot placeholders only if real screenshots can be created, feature list, architecture diagram, quick start, demo mode, real-data setup, model setup, API examples, tests, troubleshooting, and current limitations.
+- `docs/ARCHITECTURE.md` detailing components, data flow, provider interfaces, persistence, retrieval, and job lifecycle.
+- `docs/DATA_SOURCES.md` listing official URLs, access date, known fields, licensing/terms notes, and how to refresh source schema safely.
+- `docs/ANNOTATION_GUIDELINES.md` defining each field, evidence rules, unknown/null rules, ambiguity handling, and split policy.
+- `docs/EXPERIMENT_PROTOCOL.md` defining hypotheses, baselines, synthetic ratios, datasets/splits, seeds, metrics, confidence intervals, and no-leakage policy.
+- `docs/MAC_M2_SETUP.md` with exact commands for environment setup, frontend/backend, optional MongoDB, Ollama, supported local models, optional MLX-LM fine-tuning, and common errors.
+- `docs/API.md` or use FastAPI OpenAPI plus concise examples.
+- `docs/SECURITY_AND_PRIVACY.md` describing secret handling, external providers, local storage, and limitations.
+- `report/TECHNICAL_REPORT_TEMPLATE.md` with sections for actual data, measured tables, ablations, failure analysis, limits, and future work. Do not pre-populate results with fabricated figures.
+- `.env.example`, license appropriate to project code, `.gitignore`, dependency manifests, `Makefile` or scripts for common commands.
+- A simple demo walkthrough and suggested 2-minute screen-recording script.
+
+EXPECTED REPOSITORY LAYOUT
+Use this as guidance, adapting only when there is a clear engineering reason:
+
+Auto Royal M/
+  README.md
+  MASTER_BUILD_PROMPT.txt
+  .gitignore
+  .env.example
+  pyproject.toml or backend/pyproject.toml
+  frontend/package.json
+  backend/app/...
+  backend/tests/...
+  backend/data/demo/...
+  backend/scripts/...
+  frontend/src/...
+  frontend/tests/...
+  docs/ARCHITECTURE.md
+  docs/DATA_SOURCES.md
+  docs/ANNOTATION_GUIDELINES.md
+  docs/EXPERIMENT_PROTOCOL.md
+  docs/MAC_M2_SETUP.md
+  docs/SECURITY_AND_PRIVACY.md
+  report/TECHNICAL_REPORT_TEMPLATE.md
+  docker-compose.yml (optional services only)
+  Dockerfile(s) as useful
+  scripts/dev.sh, scripts/test.sh, scripts/doctor.sh
+
+CLI/DEVELOPER EXPERIENCE
+Provide commands equivalent to:
+- `./scripts/doctor.sh` — check Python, Node, optional MongoDB, optional Ollama/model, and print actionable status without failing the core demo because optional services are absent.
+- `./scripts/dev.sh` — start the backend and frontend in a developer-friendly manner, or document separate commands if process management would be brittle.
+- `./scripts/test.sh` — run backend tests, frontend type-check/lint/build/tests.
+- one command to load deterministic demo fixtures/reset demo state safely.
+- one command to run baseline evaluation on fixture/specified dataset.
+Use portable shell scripts where practical and ensure executable permissions are set. Never claim a command works until you run it in the environment.
+
+MODEL PROVIDER INTERFACE
+Implement a clear interface along these lines:
+- `extract(text, metadata) -> ExtractionResult`
+- `answer(question, context, filters) -> QAResponse`
+- `health() -> ProviderHealth`
+Provide:
+1. deterministic demo provider for reliable offline tests and UI demos, unmistakably labeled as demo output;
+2. optional Ollama provider for an explicitly configured local model, with timeout, JSON/schema handling, health checks, and useful errors;
+3. clear extension point for other providers without hardcoded SDK dependency or API key.
+The demo provider should use deterministic fixtures/rules for known example inputs and return an explicit demo result for other requests. Do not imply it ran an LLM. The Ollama provider must actually call the local Ollama API and handle unavailable servers/models properly.
+
+DELIVERABLES
+Deliver a finished, runnable repository called `Auto Royal M` and a ZIP archive named exactly `Auto Royal M.zip` (spaces preserved). The ZIP must contain the complete repository, not just screenshots or a plan. Include the master prompt as `MASTER_BUILD_PROMPT.txt` in the repository as well. Exclude virtual environments, node_modules, caches, secrets, enormous downloaded datasets, and model weights from the ZIP. Include everything needed to install dependencies and reproduce the supported demo. Provide a separate README and exact setup commands.
+
+BUILD PROCEDURE — FOLLOW IN ORDER
+Phase 1: Inspect environment and repo. Determine available Python/Node/package managers/Docker and architecture. Write a brief implementation checklist in the repo.
+Phase 2: Define project structure, API contracts, Pydantic schemas, TypeScript types, settings, and provider interfaces.
+Phase 3: Implement deterministic demo fixtures, extraction and QA demo paths, retrieval with real citation IDs, persistence fallback, health/status, and tests. The core app must be runnable now.
+Phase 4: Implement frontend navigation and all primary screens connected to the API. No dead buttons or disconnected mock UI.
+Phase 5: Implement ingestion adapters, data validation/profiling, source metadata, and background job status. Make real source downloads optional, opt-in, and documented.
+Phase 6: Implement rule/scikit-learn baselines, gold-set format, split-leakage safeguards, evaluation metrics, result storage, and plots from actual runs.
+Phase 7: Implement the synthetic generation interface, quality filters, human review workflow, provenance, and exports. Add Ollama only if supported/configured.
+Phase 8: Implement optional real-model inference and model training instructions/path compatible with Apple Silicon or explicitly separate cloud/CUDA requirements.
+Phase 9: Harden API/security/error handling, improve accessibility and visual polish, add logs/benchmarks, docs, CI, and scripts.
+Phase 10: Run backend tests, frontend tests/type-check/lint/build, doctor script, and end-to-end demo acceptance flow. Fix all failures that can be fixed in the environment.
+Phase 11: Review every visible feature against requirements. Make a short completion report listing implemented and tested features, exact commands run, known limitations, and anything that requires manual external setup.
+Phase 12: Create `Auto Royal M.zip` from the finished repository and verify the archive opens and contains the expected files. Also provide the path/link to the ZIP and README.
+
+DEFINITION OF DONE / ACCEPTANCE CRITERIA
+The project is not complete until all of the following are true or any exception is explicitly identified:
+1. A clean setup can install the frontend and backend using documented commands on an Apple Silicon Mac.
+2. Core demo startup does not require API keys, GPU, Docker, MongoDB, or downloaded weights.
+3. The frontend connects to the backend and displays API health/status correctly.
+4. A user can submit a repair note, receive a schema-validated extraction, inspect evidence, and copy/download JSON.
+5. A user can ask a sample automotive question, receive a response grounded in actual fixture documents, and click through to the specific evidence. The UI indicates DEMO mode until a real provider/source is configured.
+6. The system abstains when the fixture retrieval cannot support the question; unsupported claims and fabricated citations are tested against fixtures.
+7. Real-data ingestion is implemented with defensive parsing and clear provenance; if external data retrieval cannot be verified, document the blocker rather than claiming it succeeded.
+8. Synthetic generation clearly distinguishes real provider outputs from offline examples, tracks provenance, validates records, rejects duplicates/contradictions when detectable, and cannot draw seeds from gold/test data.
+9. Baselines and metric code have tests using known-answer fixtures.
+10. Experiment results come from stored runs and never from invented figures. Empty results have a meaningful empty state.
+11. Backend tests pass; frontend type-check and production build pass; lint/tests are run and failures documented.
+12. Health checks and API errors are understandable and do not leak secrets.
+13. Setup, architecture, data sources, annotation protocol, experiment protocol, and limitations are documented.
+14. The ZIP excludes secrets, virtual environments, node_modules, caches, and model weights; it opens successfully and contains the repository.
+15. Completion report states exactly what ran and what did not. No unverified “everything works” claims.
+
+WHEN BLOCKED
+Do not stop at the first missing tool, network access, model, database, or API key. Keep working on the deterministic core and provide an honest, tested fallback. Do not ask the user avoidable questions; choose sensible defaults and document them. Do not make up external credentials, data downloads, benchmark outcomes, or successful commands. Where an external dependency is optional, implement graceful detection and a helpful setup message.
+
+FINAL RESPONSE REQUIRED FROM YOU
+After implementation, respond with:
+- a direct download link to `Auto Royal M.zip`;
+- a link to the README and, if separate, the master prompt;
+- the exact command(s) to run the app on Mac M2;
+- a concise checklist of what you actually implemented and tested;
+- known limitations and optional setup needed for real LLM inference, real public-data ingestion, and model fine-tuning.
+Do not claim the user is in the “top 1%” or guarantee hiring success. Optimize for a credible, reproducible project that demonstrates research discipline, engineering ownership, and domain fit.
+
+NOW START. Inspect the actual environment and files, implement the project, test it, fix failures, and create the verified ZIP. Do not respond with only a plan or repeat this prompt back to the user.

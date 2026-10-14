@@ -1,0 +1,33 @@
+{
+  "catalog_id": "generic-obd-titles-v1",
+  "access_date": "2026-10-13",
+  "source_note": "Short titles for common generic powertrain codes. These names follow the public SAE J2012 naming used across OBD-II references. This is not the SAE standard, not a complete catalog, and not evidence that a part has failed.",
+  "license_notes": "Titles are factual code names restated for retrieval. Do not treat a title as a repair procedure.",
+  "codes": [
+    {"code": "P0101", "title": "Mass or Volume Air Flow Circuit Range/Performance"},
+    {"code": "P0113", "title": "Intake Air Temperature Sensor 1 Circuit High"},
+    {"code": "P0128", "title": "Coolant Thermostat Coolant Temperature Below Regulating Temperature"},
+    {"code": "P0171", "title": "System Too Lean Bank 1"},
+    {"code": "P0172", "title": "System Too Rich Bank 1"},
+    {"code": "P0174", "title": "System Too Lean Bank 2"},
+    {"code": "P0300", "title": "Random/Multiple Cylinder Misfire Detected"},
+    {"code": "P0301", "title": "Cylinder 1 Misfire Detected"},
+    {"code": "P0302", "title": "Cylinder 2 Misfire Detected"},
+    {"code": "P0303", "title": "Cylinder 3 Misfire Detected"},
+    {"code": "P0304", "title": "Cylinder 4 Misfire Detected"},
+    {"code": "P0325", "title": "Knock Sensor 1 Circuit Bank 1"},
+    {"code": "P0335", "title": "Crankshaft Position Sensor A Circuit"},
+    {"code": "P0340", "title": "Camshaft Position Sensor A Circuit Bank 1"},
+    {"code": "P0401", "title": "Exhaust Gas Recirculation Flow Insufficient Detected"},
+    {"code": "P0420", "title": "Catalyst System Efficiency Below Threshold Bank 1"},
+    {"code": "P0430", "title": "Catalyst System Efficiency Below Threshold Bank 2"},
+    {"code": "P0442", "title": "Evaporative Emission System Leak Detected Small Leak"},
+    {"code": "P0455", "title": "Evaporative Emission System Leak Detected Large Leak"},
+    {"code": "P0507", "title": "Idle Control System RPM Higher Than Expected"},
+    {"code": "P0700", "title": "Transmission Control System Malfunction"},
+    {"code": "P0715", "title": "Input/Turbine Speed Sensor Circuit"},
+    {"code": "P0741", "title": "Torque Converter Clutch Circuit Performance or Stuck Off"},
+    {"code": "P0750", "title": "Shift Solenoid A"},
+    {"code": "P0841", "title": "Transmission Fluid Pressure Sensor/Switch A Circuit Range/Performance"}
+  ]
+}

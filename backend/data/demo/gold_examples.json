@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0.0",
+  "guideline_version": "1.0.0",
+  "label": "DEMO",
+  "examples": [
+    {
+      "example_id": "gold-train-brakes-1",
+      "source_document_ids": ["demo-brake-escape"],
+      "source_group": "grp-brakes-escape",
+      "split": "train",
+      "component_category": "brakes",
+      "input_text": "2016 Ford Escape. Customer reports a grind from the front brakes at low speed. Replaced the front brake pads.",
+      "target": {"symptom": "grind", "dtc_codes": [], "component": "front brake pads", "repair_action": "replaced front brake pads", "complaint": "a grind from the front brakes at low speed", "correction": "replaced front brake pads", "vehicle": {"make": "Ford", "model": "Escape", "model_year": 2016}}
+    },
+    {
+      "example_id": "gold-train-brakes-2",
+      "source_document_ids": [],
+      "source_group": "grp-brakes-generic",
+      "split": "train",
+      "component_category": "brakes",
+      "input_text": "2012 Honda Accord. Customer reports a grind from the rear brakes. Replaced the brake pads.",
+      "target": {"symptom": "grind", "component": "brake pads", "repair_action": "replaced brake pads", "complaint": "a grind from the rear brakes", "correction": "replaced brake pads", "vehicle": {"make": "Honda", "model": "Accord", "model_year": 2012}}
+    },
+    {
+      "example_id": "gold-train-brakes-3",
+      "source_document_ids": [],
+      "source_group": "grp-brakes-generic-2",
+      "split": "train",
+      "component_category": "brakes",
+      "input_text": "2011 Subaru Outback. Grind at the front wheels. Replaced the front brake pads.",
+      "target": {"symptom": "grind", "component": "front brake pads", "repair_action": "replaced front brake pads", "vehicle": {"make": "Subaru", "model": "Outback", "model_year": 2011}}
+    },
+    {
+      "example_id": "gold-train-emissions-1",
+      "source_document_ids": ["demo-civic-catalyst"],
+      "source_group": "grp-emissions-civic",
+      "split": "train",
+      "component_category": "emissions",
+      "input_text": "2018 Honda Civic. Check engine light on. Stored DTC P0420. Customer reports a rotten egg smell at idle. Replaced the catalytic converter.",
+      "target": {"symptom": "check engine light", "dtc_codes": ["P0420"], "component": "catalytic converter", "repair_action": "replaced catalytic converter", "complaint": "a rotten egg smell at idle", "correction": "replaced catalytic converter", "vehicle": {"make": "Honda", "model": "Civic", "model_year": 2018}}
+    },
+    {
+      "example_id": "gold-train-emissions-2",
+      "source_document_ids": [],
+      "source_group": "grp-emissions-2",
+      "split": "train",
+      "component_category": "emissions",
+      "input_text": "2010 Toyota Corolla. Check engine light on. DTC P0420. Replaced the catalytic converter.",
+      "target": {"symptom": "check engine light", "dtc_codes": ["P0420"], "component": "catalytic converter", "repair_action": "replaced catalytic converter", "vehicle": {"make": "Toyota", "model": "Corolla", "model_year": 2010}}
+    },
+    {
+      "example_id": "gold-train-emissions-3",
+      "source_document_ids": [],
+      "source_group": "grp-emissions-3",
+      "split": "train",
+      "component_category": "emissions",
+      "input_text": "2009 Ford Escape. Check engine light on with DTC P0171. Replaced the oxygen sensor.",
+      "target": {"symptom": "check engine light", "dtc_codes": ["P0171"], "component": "oxygen sensor", "repair_action": "replaced oxygen sensor", "vehicle": {"make": "Ford", "model": "Escape", "model_year": 2009}}
+    },
+    {
+      "example_id": "gold-train-electrical-1",
+      "source_document_ids": ["demo-malibu-radio"],
+      "source_group": "grp-electrical-malibu",
+      "split": "train",
+      "component_category": "electrical",
+      "input_text": "2015 Chevrolet Malibu. Customer reports the battery is dead after the car sits overnight. Replaced the radio.",
+      "target": {"symptom": "dead battery", "component": "radio", "repair_action": "replaced radio", "complaint": "the battery is dead after the car sits overnight", "correction": "replaced radio", "vehicle": {"make": "Chevrolet", "model": "Malibu", "model_year": 2015}}
+    },
+    {
+      "example_id": "gold-train-electrical-2",
+      "source_document_ids": [],
+      "source_group": "grp-electrical-2",
+      "split": "train",
+      "component_category": "electrical",
+      "input_text": "2014 Nissan Altima. Customer reports a dead battery after sitting. Replaced the radio.",
+      "target": {"symptom": "dead battery", "component": "radio", "repair_action": "replaced radio", "complaint": "a dead battery after sitting", "vehicle": {"make": "Nissan", "model": "Altima", "model_year": 2014}}
+    },
+    {
+      "example_id": "gold-train-electrical-3",
+      "source_document_ids": [],
+      "source_group": "grp-electrical-3",
+      "split": "train",
+      "component_category": "electrical",
+      "input_text": "2016 Hyundai Elantra. Dead battery in the morning. Replaced the radio.",
+      "target": {"symptom": "dead battery", "component": "radio", "repair_action": "replaced radio", "vehicle": {"make": "Hyundai", "model": "Elantra", "model_year": 2016}}
+    },
+    {
+      "example_id": "gold-train-drive-1",
+      "source_document_ids": ["demo-wrangler-solenoid"],
+      "source_group": "grp-drivetrain-wrangler",
+      "split": "train",
+      "component_category": "drivetrain",
+      "input_text": "2013 Jeep Wrangler. Customer reports the transmission will not shift out of second gear. Replaced the shift solenoid.",
+      "target": {"symptom": "will not shift", "component": "shift solenoid", "repair_action": "replaced shift solenoid", "complaint": "the transmission will not shift out of second gear", "correction": "replaced shift solenoid", "vehicle": {"make": "Jeep", "model": "Wrangler", "model_year": 2013}}
+    },
+    {
+      "example_id": "gold-train-drive-2",
+      "source_document_ids": [],
+      "source_group": "grp-drivetrain-2",
+      "split": "train",
+      "component_category": "drivetrain",
+      "input_text": "2012 Jeep Wrangler. Will not shift out of third. Replaced the shift solenoid.",
+      "target": {"symptom": "will not shift", "component": "shift solenoid", "repair_action": "replaced shift solenoid", "vehicle": {"make": "Jeep", "model": "Wrangler", "model_year": 2012}}
+    },
+    {
+      "example_id": "gold-train-drive-3",
+      "source_document_ids": [],
+      "source_group": "grp-drivetrain-3",
+      "split": "train",
+      "component_category": "drivetrain",
+      "input_text": "2008 Chevrolet Silverado. Transmission will not shift. Replaced the shift solenoid.",
+      "target": {"symptom": "will not shift", "component": "shift solenoid", "repair_action": "replaced shift solenoid", "vehicle": {"make": "Chevrolet", "model": "Silverado", "model_year": 2008}}
+    },
+    {
+      "example_id": "gold-val-engine-1",
+      "source_document_ids": ["demo-corolla-misfire"],
+      "source_group": "grp-engine-corolla",
+      "split": "validation",
+      "component_category": "engine",
+      "input_text": "2014 Toyota Corolla. Rough idle and flashing check engine light. Stored DTC P0300. No repair performed.",
+      "target": {"symptom": "rough idle", "dtc_codes": ["P0300"], "vehicle": {"make": "Toyota", "model": "Corolla", "model_year": 2014}}
+    },
+    {
+      "example_id": "gold-test-brakes-holdout",
+      "source_document_ids": ["demo-camry-holdout"],
+      "source_group": "grp-holdout-camry-2019",
+      "split": "test",
+      "component_category": "brakes",
+      "reviewer_notes": "Symptom wording in the annotation is more specific than the rule label, so an exact symptom match is not expected.",
+      "input_text": "2019 Toyota Camry. Brake pedal pulsates at highway speed. Suspect warped front rotors. No parts replaced.",
+      "target": {"symptom": "pulsation at highway speed", "suspected_component": "brake rotors", "vehicle": {"make": "Toyota", "model": "Camry", "model_year": 2019}}
+    },
+    {
+      "example_id": "gold-test-emissions",
+      "source_document_ids": [],
+      "source_group": "grp-test-emissions",
+      "split": "test",
+      "component_category": "emissions",
+      "input_text": "2006 Honda Civic. Check engine light on. DTC P0420. Replaced the catalytic converter.",
+      "target": {"symptom": "check engine light", "dtc_codes": ["P0420"], "component": "catalytic converter", "repair_action": "replaced catalytic converter", "correction": "replaced catalytic converter", "vehicle": {"make": "Honda", "model": "Civic", "model_year": 2006}}
+    },
+    {
+      "example_id": "gold-test-electrical",
+      "source_document_ids": [],
+      "source_group": "grp-test-electrical",
+      "split": "test",
+      "component_category": "electrical",
+      "input_text": "2013 Ford Escape. Customer reports a dead battery overnight. Replaced the radio.",
+      "target": {"symptom": "dead battery", "component": "radio", "repair_action": "replaced radio", "complaint": "a dead battery overnight", "correction": "replaced radio", "vehicle": {"make": "Ford", "model": "Escape", "model_year": 2013}}
+    },
+    {
+      "example_id": "gold-test-drivetrain",
+      "source_document_ids": [],
+      "source_group": "grp-test-drivetrain",
+      "split": "test",
+      "component_category": "drivetrain",
+      "input_text": "2015 Jeep Wrangler. Will not shift into drive. Replaced the shift solenoid.",
+      "target": {"symptom": "will not shift", "component": "shift solenoid", "repair_action": "replaced shift solenoid", "correction": "replaced shift solenoid", "vehicle": {"make": "Jeep", "model": "Wrangler", "model_year": 2015}}
+    },
+    {
+      "example_id": "gold-test-dtc-only",
+      "source_document_ids": [],
+      "source_group": "grp-test-dtc-only",
+      "split": "test",
+      "component_category": "emissions",
+      "reviewer_notes": "DTC only. Component must stay null.",
+      "input_text": "P0420 stored. No repair described.",
+      "target": {"dtc_codes": ["P0420"]}
+    }
+  ]
+}

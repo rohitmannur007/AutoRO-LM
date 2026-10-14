@@ -1,0 +1,7 @@
+backend/.venv
+frontend/node_modules
+frontend/dist
+backend/data/runtime
+backend/data/downloads
+.git
+**/.DS_Store

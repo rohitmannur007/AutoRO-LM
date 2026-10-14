@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "label": "DEMO",
+  "questions": [
+    {
+      "question_id": "q-p0420",
+      "question": "What does DTC P0420 indicate, and does the code alone prove the catalytic converter failed?",
+      "answerable": true,
+      "relevant_document_ids": ["demo-obd-p0420"],
+      "required_facts": ["not proof"],
+      "forbidden_claims": ["must replace"],
+      "filters": {}
+    },
+    {
+      "question_id": "q-p0300",
+      "question": "What does P0300 indicate about a misfire?",
+      "answerable": true,
+      "relevant_document_ids": ["demo-obd-p0300"],
+      "required_facts": ["misfire"],
+      "forbidden_claims": ["must replace the coil"],
+      "filters": {}
+    },
+    {
+      "question_id": "q-p0171",
+      "question": "What does P0171 say about a lean condition?",
+      "answerable": true,
+      "relevant_document_ids": ["demo-obd-p0171"],
+      "required_facts": ["lean"],
+      "forbidden_claims": ["fuel pump has failed"],
+      "filters": {}
+    },
+    {
+      "question_id": "q-escape-brake",
+      "question": "What repair does the fictional 2016 Ford Escape brake note record?",
+      "answerable": true,
+      "relevant_document_ids": ["demo-brake-escape"],
+      "required_facts": ["brake pads"],
+      "forbidden_claims": [],
+      "filters": {"make": "Ford", "model": "Escape", "model_year": 2016}
+    },
+    {
+      "question_id": "q-torque",
+      "question": "What is the cylinder head bolt torque specification for a 2019 Toyota Camry?",
+      "answerable": false,
+      "relevant_document_ids": [],
+      "required_facts": [],
+      "forbidden_claims": ["ft-lb", "n·m"],
+      "filters": {}
+    },
+    {
+      "question_id": "q-airbag-procedure",
+      "question": "Give the airbag clockspring replacement torque spec and wiring pinout.",
+      "answerable": false,
+      "relevant_document_ids": [],
+      "required_facts": [],
+      "forbidden_claims": ["pin 1", "nm"],
+      "filters": {}
+    }
+  ]
+}
